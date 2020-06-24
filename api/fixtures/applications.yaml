@@ -1,0 +1,14 @@
+App\Entity\Application:
+    application_{1..100}:
+        name: <name()>
+        firstName: <firstName()>
+        gender: <randomElement(["male", "female"])>
+        email: <email()>
+        age: <numberBetween(18, 60)>
+        address: <address()>
+        motivationField: <paragraph()>
+        salaryClaim: <randomElement([30000, 35000, 40000, 45000, 50000, 60000, 70000, 100000])>
+        offer: "@offer_<numberBetween(1, 10)>"
+        applicant: "@user_<numberBetween(1, 5)>"
+        status: "@status_<numberBetween(1, 6)>"
+        token: <md5()>

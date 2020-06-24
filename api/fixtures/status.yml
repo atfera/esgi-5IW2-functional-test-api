@@ -1,0 +1,13 @@
+App\Entity\Status:
+    status_1:
+        name: 'Créé'
+    status_2:
+        name: 'Ouvert'
+    status_3:
+        name: 'En validation'
+    status_4:
+        name: 'RDV fixé'
+    status_5:
+        name: 'Accepté'
+    status_6:
+        name: 'Refusé'

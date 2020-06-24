@@ -1,0 +1,16 @@
+{
+  "sqltools.connections": [
+    {
+      "askForPassword": false,
+      "database": "api",
+      "driver": "PostgreSQL",
+      "group": "testF",
+      "name": "api-platform",
+      "password": "!ChangeMe!",
+      "port": 5432,
+      "previewLimit": 50,
+      "server": "localhost",
+      "username": "api-platform"
+    }
+  ]
+}

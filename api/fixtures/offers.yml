@@ -1,0 +1,8 @@
+App\Entity\Offer:
+    offer_{1..10}:
+        name: <jobTitle()>
+        descriptionCompany: <company()>
+        description: <paragraph(1)>
+        typeContract: <randomElement(["CDI", "CDD", "Alternance", "Stage"])>
+        workplace: <address()>
+        recruiter: "@user_<numberBetween(6, 10)>"

@@ -1,0 +1,17 @@
+App\Entity\User:
+    user_{1..5}:
+        email: <email()>
+        roles: ["ROLE_USER"]
+        password: <password()>
+        isActive: <boolean(50)>
+    user_{6..10}:
+        email: <email()>
+        roles: ["ROLE_ADMIN"]
+        password: <password()>
+        isActive: true
+    user_11:
+        email: "admin@test.com"
+        roles: ["ROLE_USER", "ROLE_ADMIN"]
+        password: <encodedPassword(@user_11, "admin")>
+        isActive: true
+
