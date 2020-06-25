@@ -31,5 +31,8 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\DataFixtures\Faker\Provider\PasswordProvider:
+        tags: [{ name: nelmio_alice.faker.provider }]
+
     App\DataFixtures\Faker\Provider\FooProvider:
         tags: [{ name: nelmio_alice.faker.provider }]

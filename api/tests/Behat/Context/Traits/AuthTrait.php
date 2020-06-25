@@ -35,7 +35,13 @@ trait AuthTrait
 
         // // Return token ?
 
-
+        $client = HttpClient::create();
+        $request = $client->request('POST', 'https://localhost:8000/api/login_check', [
+            "headers" => ["Content-Type" => "application/json"],
+            "body" => ["username" => $email,"password" => $password ]
+        ]);
+        $response = $request->getContent();
+        $this->token = $response.token;
 
 
     }
