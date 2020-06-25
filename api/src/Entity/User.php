@@ -86,11 +86,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"users_get"})
      */
     private $token;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"users_get"})
      */
     private $isActive;
 
