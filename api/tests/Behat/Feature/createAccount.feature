@@ -25,4 +25,6 @@ Feature: Create and validate account
     Given I validate the account
     And the response status code should be 200
     And the "isActive" property should be a boolean equalling "true"
+    Given I request "GET /users/{{ user_1.id }}"
+    And the response status code should be 200
     Then print last response
