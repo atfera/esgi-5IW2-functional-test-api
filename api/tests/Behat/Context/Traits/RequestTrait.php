@@ -63,6 +63,10 @@ trait RequestTrait
      */
     public function iRequest($httpMethod, $resource)
     {
+
+        $resource = $this->referenceManager->compile($resource);
+
+        echo $resource;
         $method = strtoupper($httpMethod);
 
         $options = array();

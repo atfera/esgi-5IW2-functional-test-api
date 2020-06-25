@@ -12,7 +12,7 @@ Feature: _Stack_
         "description": "description de fou!!!"
     }
     """
-    Given I request "POST /stacks"
+    Given I request "GET /stacks/{{ user_1.id }}"
     And the response status code should be 201
     And the "name" property should equal "Coucou"
 

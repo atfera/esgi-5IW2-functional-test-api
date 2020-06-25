@@ -12,6 +12,7 @@ App\Entity\User:
     user_11:
         email: "admin@test.com"
         roles: ["ROLE_USER", "ROLE_ADMIN"]
-        password: <encodedPassword(@user_11, "admin")>
+        # password: <encodedPassword(@user_11, "admin")>
+        password: "admin"
         isActive: true
 
