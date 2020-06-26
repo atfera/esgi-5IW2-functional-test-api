@@ -4,7 +4,7 @@ namespace App\DataFixtures\Faker\Provider;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserProvider
+class PasswordProvider
 {
 
     private static $passwordEncoder;

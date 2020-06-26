@@ -61,7 +61,7 @@ trait RequestTrait
     /**
      * @When /^I request "(GET|PUT|POST|DELETE|PATCH) ([^"]*)"$/
      */
-    public function iRequest($httpMethod, $resource)
+    public function iRequest($httpMethod, $resource, $payload=NULL)
     {
 
         $resource = $this->referenceManager->compile($resource);
@@ -75,11 +75,15 @@ trait RequestTrait
             $options = ['Authorization' => ['Bearer ' . $this->token]];
         }
 
+        if (!$payload) {
+            $payload = $this->requestPayload;
+        }
+
         $this->lastRequest = new Request(
             $httpMethod,
             $resource,
             $this->requestHeaders,
-            json_encode($this->requestPayload)
+            json_encode($payload)
         );
 
         try {
@@ -89,7 +93,7 @@ trait RequestTrait
                 $resource,
                 [
                     'headers' => $this->requestHeaders,
-                    'body'    => json_encode($this->requestPayload),
+                    'body'    => json_encode($payload),
                 ]
             );
         } catch (\Exception $e) {

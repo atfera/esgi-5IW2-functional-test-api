@@ -16,31 +16,21 @@ trait AuthTrait
     /**
      * @Given /^I authenticate with user "([^"]*)" and password "([^"]*)"$/
      */
-    public function iAuthenticateWithEmailAndPassword($email, $password, UserPasswordEncoderInterface $encoder)
+    public function iAuthenticateWithEmailAndPassword($email, $password)
     {
-        // $em = $this->kernel->getContainer()->get('doctrine')->getManager();
-        // $user = $em->getRepository(User::class)->findOneBy([
-        //     'email' => $email,
-        // ]);
+        $resource = '/authentication_token';
 
-        // if (!$user) {
-        //     throw new \Exception('Wrong credentials');
-        // }
+        $payload = new \stdClass();
+        $payload->email = $this->referenceManager->compile($email);
+        $payload->password = $password;
 
-        // $isPasswordValid = $encoder->isPasswordValid($user, $password);
+        $this->iRequest('POST', $resource, $payload);
 
-        // if (!$isPasswordValid) {
-        //     throw new \Exception('Wrong credentials');
-        // }
+        $responsePayload = $this->getResponsePayload();
 
-        // // Return token ?
-        $client = HttpClient::create();
-        $request = $client->request('POST', 'https://localhost:8000/api/login_check', [
-            "headers" => ["Content-Type" => "application/json"],
-            "body" => ["username" => $email,"password" => $password ]
-        ]);
-        $response = $request->getContent();
-        $this->token = $response.token;
+        $this->token = $this->arrayGet($responsePayload, 'token');
+
+        $this->iSetTheHeaderToBe('Authorization', 'Bearer ' . $this->token);
     }
 
     /**

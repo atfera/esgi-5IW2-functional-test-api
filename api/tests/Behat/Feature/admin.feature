@@ -10,12 +10,12 @@ Feature: Test admin features
   Scenario: Get all users with applicant account
     Given I authenticate with user "{{ user_1.email }}" and password "applicant"
     Given I request "GET /users"
-    And the response status code should be 400
+    And the response status code should be 403
 
   Scenario: Get all offers with recruiter account
     Given I authenticate with user "{{ user_6.email }}" and password "recruiter"
     Given I request "GET /offers"
-    And the response status code should be 400
+    And the response status code should be 403
 
   Scenario: Get all users with admin account
     Given I authenticate with user "{{ user_11.email }}" and password "admin"
@@ -28,6 +28,6 @@ Feature: Test admin features
     Given I authenticate with user "{{ user_11.email }}" and password "admin"
     Given I request "GET /offers"
     And the response status code should be 200
-    And the "hydra:totalItems" property should be an integer equalling "10"
+    And the "hydra:totalItems" property should be an integer equalling "0"
     Then print last response
 
