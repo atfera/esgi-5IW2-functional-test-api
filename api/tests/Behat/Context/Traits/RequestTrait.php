@@ -76,14 +76,16 @@ trait RequestTrait
         }
 
         if (!$payload) {
-            $payload = $this->requestPayload;
+            $payload = $this->referenceManager->compile(
+                json_encode($this->requestPayload)
+            );
         }
 
         $this->lastRequest = new Request(
             $httpMethod,
             $resource,
             $this->requestHeaders,
-            json_encode($payload)
+            $payload
         );
 
         try {
@@ -93,7 +95,7 @@ trait RequestTrait
                 $resource,
                 [
                     'headers' => $this->requestHeaders,
-                    'body'    => json_encode($payload),
+                    'body'    => $payload,
                 ]
             );
         } catch (\Exception $e) {
