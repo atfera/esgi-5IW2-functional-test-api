@@ -280,6 +280,40 @@ class ApiFeatureContext implements Context
     }
 
     /**
+     * @Then /^the "([^"]*)" property should be greater than "([^"]*)"$/
+     */
+    public function thePropertyShouldBeGreaterThan($property, $expectedValue)
+    {
+        $payload = $this->getScopePayload();
+        $actualValue = $this->arrayGet($payload, $property);
+
+        $this->thePropertyIsAnInteger($property);
+
+        assertGreaterThan(
+            $actualValue,
+            (int) $expectedValue,
+            "Asserting the [$property] property in current scope [{$this->scope}] is greater than [$expectedValue]."
+        );
+    }
+
+    /**
+     * @Then /^the "([^"]*)" property should be less than "([^"]*)"$/
+     */
+    public function thePropertyShouldBeLessThan($property, $expectedValue)
+    {
+        $payload = $this->getScopePayload();
+        $actualValue = $this->arrayGet($payload, $property);
+
+        $this->thePropertyIsAnInteger($property);
+
+        assertLessThan(
+            $actualValue,
+            (int) $expectedValue,
+            "Asserting the [$property] property in current scope [{$this->scope}] is less than [$expectedValue]."
+        );
+    }
+
+    /**
      * @Then /^the "([^"]*)" property should be either:$/
      */
     public function thePropertyIsEither($property, PyStringNode $options)
@@ -325,4 +359,5 @@ class ApiFeatureContext implements Context
             $value
         );
     }
+
 }

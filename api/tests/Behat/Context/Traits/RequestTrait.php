@@ -75,11 +75,15 @@ trait RequestTrait
             $options = ['Authorization' => ['Bearer ' . $this->token]];
         }
 
-        if (!$payload) {
+        if (is_null($payload)) {
             $payload = $this->referenceManager->compile(
                 json_encode($this->requestPayload)
             );
+        } else {
+            $payload = json_encode($payload);
         }
+
+        echo $payload;
 
         $this->lastRequest = new Request(
             $httpMethod,
