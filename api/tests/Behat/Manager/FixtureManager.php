@@ -6,6 +6,7 @@ use ApiPlatform\Core\Api\IriConverterInterface;
 use Fidry\AliceDataFixtures\Loader\PersisterLoader;
 use Fidry\AliceDataFixtures\ProcessorInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use App\Tests\Behat\Manager\ReferenceManager;
 
 class FixtureManager implements ProcessorInterface
 {
@@ -13,10 +14,12 @@ class FixtureManager implements ProcessorInterface
      * @var PersisterLoader
      */
     private $fixtureLoader;
+    private ReferenceManager $referenceManager;
 
-    public function __construct(IriConverterInterface $iriConverter, KernelInterface $kernel)
+    public function __construct(IriConverterInterface $iriConverter, KernelInterface $kernel, ReferenceManager $referenceManager)
     {
         $this->fixtureLoader = $kernel->getContainer()->get('fidry_alice_data_fixtures.loader.doctrine');
+        $this->referenceManager = $referenceManager;
     }
 
     /**
@@ -34,7 +37,7 @@ class FixtureManager implements ProcessorInterface
      */
     public function preProcess(string $fixtureId, $object): void
     {
-        // do nothing now
+
     }
 
     /**
@@ -44,6 +47,7 @@ class FixtureManager implements ProcessorInterface
     public function postProcess(string $fixtureId, $object): void
     {
         //dump($fixtureId, $object);
+        $this->referenceManager->set($fixtureId, $object);
         // do nothing now
     }
 }

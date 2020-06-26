@@ -34,7 +34,6 @@ trait AuthTrait
         // }
 
         // // Return token ?
-
         $client = HttpClient::create();
         $request = $client->request('POST', 'https://localhost:8000/api/login_check', [
             "headers" => ["Content-Type" => "application/json"],
@@ -42,7 +41,27 @@ trait AuthTrait
         ]);
         $response = $request->getContent();
         $this->token = $response.token;
+    }
 
+    /**
+     * @Given /^I am not authenticated$/
+     */
+    public function iNotAuthenticated()
+    {
+        if($this->arrayHas($this->requestHeaders, 'Authorization')) {
+            unset($this->requestHeaders['Authorization']);
+        }
+    }
 
+    /**
+     * @Given /^I validate the account$/
+     */
+    public function iValidateAccount()
+    {
+        $payload = $this->getResponsePayload();
+
+        $ressource = '/users/validation/' . $this->arrayGet($payload, 'token');
+
+        $this->iRequest('GET', $ressource);
     }
 }
